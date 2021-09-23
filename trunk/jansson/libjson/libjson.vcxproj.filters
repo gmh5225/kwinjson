@@ -74,5 +74,8 @@
     <ClInclude Include="..\jansson\private_include\jansson_private_config.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="..\jansson\src\jansson_config.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
