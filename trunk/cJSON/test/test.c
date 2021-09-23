@@ -4,6 +4,7 @@
 
 
 #pragma warning(disable:4559) 
+#pragma warning(disable:4189) 
 
 #define EXIT_FAILURE 0
 
@@ -13,6 +14,13 @@
 
 
 //////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+void JsonTest()
+{
+    //const char * ver = cJSON_Version();
+
+}
 
 
 _Function_class_(DRIVER_UNLOAD)
@@ -49,6 +57,8 @@ EXTERN_C NTSTATUS DriverEntry(_In_ PDRIVER_OBJECT DriverObject, _In_ PUNICODE_ST
     PAGED_CODE();
 
     DriverObject->DriverUnload = Unload;
+
+    JsonTest();
 
     return status;
 }

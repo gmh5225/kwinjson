@@ -6,6 +6,9 @@ MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "libcjson", "libcjson\libcjson.vcxproj", "{615CF6F2-161A-4F35-8CA5-9DF9C21D9213}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "test", "test\test.vcxproj", "{129F7C97-A060-45EE-893C-47F76468D5F9}"
+	ProjectSection(ProjectDependencies) = postProject
+		{615CF6F2-161A-4F35-8CA5-9DF9C21D9213} = {615CF6F2-161A-4F35-8CA5-9DF9C21D9213}
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
