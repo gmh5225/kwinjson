@@ -18,9 +18,9 @@
 //////////////////////////////////////////////////////////////////////////////////////////////////
 
 
+char * create_monitor(void)
 //create a monitor with a list of supported resolutions
 //NOTE: Returns a heap allocated string, you are required to free it after use.
-char * create_monitor(void)
 {
     const unsigned int resolution_numbers[3][2] = {
         {1280, 720},
@@ -85,8 +85,8 @@ end:
 }
 
 
-//NOTE: Returns a heap allocated string, you are required to free it after use.
 char * create_monitor_with_helpers(void)
+//NOTE: Returns a heap allocated string, you are required to free it after use.
 {
     const unsigned int resolution_numbers[3][2] = {
         {1280, 720},
@@ -133,8 +133,8 @@ end:
 }
 
 
-/* return 1 if the monitor supports full hd, 0 otherwise */
 int supports_full_hd(const char * const monitor)
+/* return 1 if the monitor supports full hd, 0 otherwise */
 {
     const cJSON * resolution = NULL;
     const cJSON * resolutions = NULL;
@@ -182,10 +182,14 @@ void JsonTest()
 {
     const char * ver = cJSON_Version();
 
-    const char * string = "XXX";
-    cJSON * json = cJSON_Parse(string);
+    char * monitor = create_monitor();
 
-    char * string2 = cJSON_Print(json);
+    char * monitor_with_helpers = create_monitor_with_helpers();
+
+    int ret = supports_full_hd(monitor);
+
+    free(monitor);
+    free(monitor_with_helpers);
 }
 
 
