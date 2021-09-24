@@ -27,17 +27,6 @@
 #define _CRT_SECURE_NO_DEPRECATE
 #endif
 
-#if defined(_MSC_VER)
-#pragma warning (push)
-/* disable warning about single line comments in system headers */
-#pragma warning (disable : 4001)
-#pragma warning (disable : 4565)
-#endif
-
-#if defined(_MSC_VER)
-#pragma warning (pop)
-#endif
-
 #include "test.h"
 #include "cJSON.h"
 
@@ -102,8 +91,8 @@ int __CRTDECL sscanf(
     va_list _ArgList;
     __crt_va_start(_ArgList, _Format);
 
-    UNREFERENCED_PARAMETER(_Buffer);
     //_Result = _vsscanf_l(_Buffer, _Format, NULL, _ArgList);
+    _Result = sscanf_s(_Buffer, _Format, _ArgList);
 
     __crt_va_end(_ArgList);
     return _Result;
@@ -116,6 +105,12 @@ int __CRTDECL sscanf(
 //    _Out_opt_ _Deref_post_z_ char ** _EndPtr
 //) 
 double strtod(const char * strSource, char ** endptr)
+/*
+需要自己实现，驱动一般不用浮点数。
+要用浮点数还得一些特殊的代码技巧。
+
+参考：\Win2K3\NT\base\crts\crtw32\convert\strtod.c
+*/
 {
     UNREFERENCED_PARAMETER(strSource);
     UNREFERENCED_PARAMETER(endptr);
@@ -130,8 +125,9 @@ void __cdecl free(
     _Pre_maybenull_ _Post_invalid_ void * _Block
 )
 {
-    UNREFERENCED_PARAMETER(_Block);
-
+    if (_Block) {
+        ExFreePoolWithTag(_Block, TAG);
+    }
 }
 
 
@@ -142,9 +138,7 @@ void * __cdecl malloc(
     _In_ _CRT_GUARDOVERFLOW size_t _Size
 )
 {
-    UNREFERENCED_PARAMETER(_Size);
-
-    return NULL;
+    return ExAllocatePoolWithTag(PagedPool, _Size, TAG);
 }
 
 
@@ -156,10 +150,11 @@ void * __cdecl realloc(
     _In_ _CRT_GUARDOVERFLOW        size_t _Size
 )
 {
-    UNREFERENCED_PARAMETER(_Block);
-    UNREFERENCED_PARAMETER(_Size);
+    if (_Block) {
+        ExFreePoolWithTag(_Block, TAG);
+    }
 
-    return NULL;
+    return ExAllocatePoolWithTag(PagedPool, _Size, TAG);
 }
 
 
