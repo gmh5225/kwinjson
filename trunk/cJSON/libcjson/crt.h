@@ -20,7 +20,17 @@
 #define _CRT_INTERNAL_LOCAL_SCANF_OPTIONS  (*__local_stdio_scanf_options ())
 
 
-#define __crt_va_start(ap, x) __crt_va_start_a(ap, x)
+//void __cdecl __va_start(va_list *, ...);
+
+#define __crt_va_start_a(ap, x) ((void)(__va_start(&ap, x)))
+
+#define __crt_va_start(ap, x) ((void)(__crt_va_start_a(ap, x)))
+
+#define __crt_va_end(ap)        ((void)(ap = (va_list)0))
+
+#define _CRT_GUARDOVERFLOW
+#define _ACRTIMP
+#define _CRT_HYBRIDPATCHABLE
 
 
 #define __crt_va_start_a(ap, x) ((void)(__va_start(&ap, x)))
@@ -39,9 +49,3 @@
 
 
 //////////////////////////////////////////////////////////////////////////////////////////////////
-
-
-//void * __cdecl malloc(
-//    _In_ _CRT_GUARDOVERFLOW size_t _Size
-//);
-
