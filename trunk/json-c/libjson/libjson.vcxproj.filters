@@ -15,9 +15,6 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\json-c\arraylist.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="..\json-c\debug.c">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -54,15 +51,15 @@
     <ClCompile Include="..\json-c\strerror_override.c">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="crt.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\json-c\arraylist.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="..\json-c\debug.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="..\json-c\json.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="..\json-c\json_c_version.h">
@@ -120,6 +117,12 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="..\json-c\vasprintf_compat.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="crt.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="pch.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
