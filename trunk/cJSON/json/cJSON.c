@@ -69,7 +69,11 @@ static error global_error = {NULL, 0};
 
 //void __cdecl __va_start(va_list *, ...);
 
+#if defined _M_IX86 && !defined _M_HYBRID_X86_ARM64
+#define __crt_va_start_a(ap, v) ((void)(ap = (va_list)_ADDRESSOF(v) + _INTSIZEOF(v)))
+#elif defined _M_X64
 #define __crt_va_start_a(ap, x) ((void)(__va_start(&ap, x)))
+#endif
 
 #define __crt_va_start(ap, x) ((void)(__crt_va_start_a(ap, x)))
 
@@ -104,7 +108,7 @@ int __CRTDECL sscanf(
 //    _In_z_                   char const * _String,
 //    _Out_opt_ _Deref_post_z_ char ** _EndPtr
 //) 
-double strtod(const char * strSource, char ** endptr)
+double __cdecl strtod(const char * strSource, char ** endptr)
 /*
 需要自己实现，驱动一般不用浮点数。
 要用浮点数还得一些特殊的代码技巧。

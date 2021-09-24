@@ -9,9 +9,6 @@
 //////////////////////////////////////////////////////////////////////////////////////////////////
 
 
-
-
-
 //_Check_return_ _CRT_INSECURE_DEPRECATE(sscanf_s)
 //_CRT_STDIO_INLINE 
 int __CRTDECL sscanf(
@@ -36,7 +33,7 @@ int __CRTDECL sscanf(
 //    _In_z_                   char const * _String,
 //    _Out_opt_ _Deref_post_z_ char ** _EndPtr
 //) 
-double strtod(const char * strSource, char ** endptr)
+double __cdecl strtod(const char * strSource, char ** endptr)
 /*
 需要自己实现，驱动一般不用浮点数。
 要用浮点数还得一些特殊的代码技巧。

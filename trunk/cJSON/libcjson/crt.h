@@ -22,7 +22,11 @@
 
 //void __cdecl __va_start(va_list *, ...);
 
+#if defined _M_IX86 && !defined _M_HYBRID_X86_ARM64
+#define __crt_va_start_a(ap, v) ((void)(ap = (va_list)_ADDRESSOF(v) + _INTSIZEOF(v)))
+#elif defined _M_X64
 #define __crt_va_start_a(ap, x) ((void)(__va_start(&ap, x)))
+#endif
 
 #define __crt_va_start(ap, x) ((void)(__crt_va_start_a(ap, x)))
 
@@ -33,7 +37,6 @@
 #define _CRT_HYBRIDPATCHABLE
 
 
-#define __crt_va_start_a(ap, x) ((void)(__va_start(&ap, x)))
 #define __crt_va_arg(ap, t)                                               \
         ((sizeof(t) > sizeof(__int64) || (sizeof(t) & (sizeof(t) - 1)) != 0) \
             ? **(t**)((ap += sizeof(__int64)) - sizeof(__int64))             \
