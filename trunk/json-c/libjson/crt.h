@@ -54,19 +54,6 @@
 #define FP_SUBNORMAL _DENORM
 #define FP_ZERO      0
 
-#ifndef __cplusplus
-#define _CLASS_ARG(_Val)                                  __pragma(warning(suppress:6334))(sizeof ((_Val) + (float)0) == sizeof (float) ? 'f' : sizeof ((_Val) + (double)0) == sizeof (double) ? 'd' : 'l')
-#define _CLASSIFY(_Val, _FFunc, _DFunc, _LDFunc)          (_CLASS_ARG(_Val) == 'f' ? _FFunc((float)(_Val)) : _CLASS_ARG(_Val) == 'd' ? _DFunc((double)(_Val)) : _LDFunc((long double)(_Val)))
-#define _CLASSIFY2(_Val1, _Val2, _FFunc, _DFunc, _LDFunc) (_CLASS_ARG((_Val1) + (_Val2)) == 'f' ? _FFunc((float)(_Val1), (float)(_Val2)) : _CLASS_ARG((_Val1) + (_Val2)) == 'd' ? _DFunc((double)(_Val1), (double)(_Val2)) : _LDFunc((long double)(_Val1), (long double)(_Val2)))
-
-#define fpclassify(_Val)      (_CLASSIFY(_Val, _fdclass, _dclass, _ldclass))
-#define _FPCOMPARE(_Val1, _Val2) (_CLASSIFY2(_Val1, _Val2, _fdpcomp, _dpcomp, _ldpcomp))
-
-#define isfinite(_Val)      (fpclassify(_Val) <= 0)
-#define isinf(_Val)         (fpclassify(_Val) == FP_INFINITE)
-#define isnan(_Val)         (fpclassify(_Val) == FP_NAN)
-#endif
-
 typedef int                 BOOL;
 
 typedef ULONG_PTR HCRYPTPROV;
@@ -104,12 +91,17 @@ typedef ULONG_PTR HCRYPTPROV;
 #endif //(NTDDI_VERSION >= NTDDI_WINXP)
 // certenrolld_end
 
+#define assert(_Expression) (void)( (!!(_Expression)) || (_assert(#_Expression, __FILE__, __LINE__), 0) )
+
 //_ACRTIMP int * __cdecl _errno(void){}
 //#define errno (*_errno())
 //int errno()
 //{
 //    return *_errno();
 //}
+
+int gbl_errno;
+#define errno   (gbl_errno)
 
 
 //////////////////////////////////////////////////////////////////////////////////////////////////
@@ -211,6 +203,52 @@ int __CRTDECL vprintf(
     _In_z_ _Printf_format_string_ char const * const _Format,
     va_list           _ArgList
 );
+
+DWORD
+WINAPI
+GetVersion(
+    VOID
+);
+
+DWORD
+WINAPI
+GetLastError(
+    VOID
+);
+
+time_t __CRTDECL time(
+    _Out_opt_ time_t * const _Time
+);
+
+int __cdecl _open(_In_z_ const char * _Filename, _In_ int _OpenFlag, ...);
+
+int __cdecl close(_In_ int _FileHandle);
+
+int __cdecl read(int _FileHandle, _Out_writes_bytes_(_MaxCharCount) void * _DstBuf, _In_ unsigned int _MaxCharCount);
+
+int __cdecl write(_In_ int _Filehandle, _In_reads_bytes_(_MaxCharCount) const void * _Buf, _In_ unsigned int _MaxCharCount);
+
+char * __cdecl setlocale(_In_ int _Category, _In_opt_z_ const char * _Locale);
+
+void __cdecl abort(void);
+
+char * __cdecl getenv(_In_z_ const char * _VarName);
+
+char * __cdecl strerror(_In_ int);
+
+double __cdecl nan(_In_ char const * _X);
+
+int    __cdecl _finite(_In_ double _X);
+#define isinf(x) (!_finite(x))
+
+int    __cdecl _isnan(_In_ double _X);
+#define isnan(x) _isnan(x)
+
+
+
+
+
+
 
 
 //////////////////////////////////////////////////////////////////////////////////////////////////

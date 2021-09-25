@@ -267,4 +267,136 @@ int __CRTDECL vprintf(
 }
 
 
+DWORD
+WINAPI
+GetVersion(
+    VOID
+)
+{
+    return 0;
+}
+
+
+DWORD
+WINAPI
+GetLastError(
+    VOID
+)
+{
+    return 0;
+}
+
+
+//static __inline 
+time_t __CRTDECL time(
+    _Out_opt_ time_t * const _Time
+)
+{
+    //return _time64(_Time);
+    return 0;
+}
+
+
+int __cdecl _open(_In_z_ const char * _Filename, _In_ int _OpenFlag, ...)
+{
+    UNREFERENCED_PARAMETER(_Filename);
+    UNREFERENCED_PARAMETER(_OpenFlag);
+
+    return 0;
+}
+
+
+int __cdecl close(_In_ int _FileHandle)
+{
+    UNREFERENCED_PARAMETER(_FileHandle);
+
+    return 0;
+}
+
+
+int __cdecl read(int _FileHandle, 
+                 _Out_writes_bytes_(_MaxCharCount) void * _DstBuf, 
+                 _In_ unsigned int _MaxCharCount)
+{
+    UNREFERENCED_PARAMETER(_FileHandle);
+    UNREFERENCED_PARAMETER(_DstBuf);
+    UNREFERENCED_PARAMETER(_MaxCharCount);
+
+    return 0;
+}
+
+
+int __cdecl write(_In_ int _Filehandle, 
+                  _In_reads_bytes_(_MaxCharCount) const void * _Buf,
+                  _In_ unsigned int _MaxCharCount)
+{
+    UNREFERENCED_PARAMETER(_Filehandle);
+    UNREFERENCED_PARAMETER(_Buf);
+    UNREFERENCED_PARAMETER(_MaxCharCount);
+
+    return 0;
+}
+
+
+char * __cdecl setlocale(_In_ int _Category, _In_opt_z_ const char * _Locale)
+{
+    UNREFERENCED_PARAMETER(_Category);
+    UNREFERENCED_PARAMETER(_Locale);
+
+    return 0;
+}
+
+
+void __cdecl _assert(_In_z_ const char * _Message, _In_z_ const char * _File, _In_ unsigned _Line)
+{
+    UNREFERENCED_PARAMETER(_Message);
+    UNREFERENCED_PARAMETER(_File);
+    UNREFERENCED_PARAMETER(_Line);
+}
+
+
+void __cdecl abort(void)
+{
+
+}
+
+
+char * __cdecl getenv(_In_z_ const char * _VarName)
+{
+    UNREFERENCED_PARAMETER(_VarName);
+    return 0;
+}
+
+
+char * __cdecl strerror(_In_ int error)
+{
+    UNREFERENCED_PARAMETER(error);
+    return 0;
+}
+
+
+double __cdecl nan(_In_ char const * _X)
+{
+    UNREFERENCED_PARAMETER(_X);
+    return 0;
+}
+
+
+int    __cdecl _finite(_In_ double _X)
+{
+    UNREFERENCED_PARAMETER(_X);
+    return 0;
+}
+
+
+int    __cdecl _isnan(_In_ double _X)
+{
+    UNREFERENCED_PARAMETER(_X);
+    return 0;
+}
+
+
+
+
+
 //////////////////////////////////////////////////////////////////////////////////////////////////

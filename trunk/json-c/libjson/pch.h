@@ -56,6 +56,7 @@
 #include <Bcrypt.h>
 #include <string.h>
 #include <math.h>
+#include <float.h>
 #include <corecrt_math.h>
 #include <assert.h>
 
