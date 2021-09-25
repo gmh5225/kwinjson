@@ -37,6 +37,36 @@
 
 #define _CRTALLOCATOR __declspec(allocator)
 
+#ifndef _HUGE_ENUF
+#define _HUGE_ENUF  1e+300  // _HUGE_ENUF*_HUGE_ENUF must overflow
+#endif
+
+#define INFINITY   ((float)(_HUGE_ENUF * _HUGE_ENUF))
+
+#define _DENORM    (-2)
+#define _FINITE    (-1)
+#define _INFCODE   1
+#define _NANCODE   2
+
+#define FP_INFINITE  _INFCODE
+#define FP_NAN       _NANCODE
+#define FP_NORMAL    _FINITE
+#define FP_SUBNORMAL _DENORM
+#define FP_ZERO      0
+
+#ifndef __cplusplus
+#define _CLASS_ARG(_Val)                                  __pragma(warning(suppress:6334))(sizeof ((_Val) + (float)0) == sizeof (float) ? 'f' : sizeof ((_Val) + (double)0) == sizeof (double) ? 'd' : 'l')
+#define _CLASSIFY(_Val, _FFunc, _DFunc, _LDFunc)          (_CLASS_ARG(_Val) == 'f' ? _FFunc((float)(_Val)) : _CLASS_ARG(_Val) == 'd' ? _DFunc((double)(_Val)) : _LDFunc((long double)(_Val)))
+#define _CLASSIFY2(_Val1, _Val2, _FFunc, _DFunc, _LDFunc) (_CLASS_ARG((_Val1) + (_Val2)) == 'f' ? _FFunc((float)(_Val1), (float)(_Val2)) : _CLASS_ARG((_Val1) + (_Val2)) == 'd' ? _DFunc((double)(_Val1), (double)(_Val2)) : _LDFunc((long double)(_Val1), (long double)(_Val2)))
+
+#define fpclassify(_Val)      (_CLASSIFY(_Val, _fdclass, _dclass, _ldclass))
+#define _FPCOMPARE(_Val1, _Val2) (_CLASSIFY2(_Val1, _Val2, _fdpcomp, _dpcomp, _ldpcomp))
+
+#define isfinite(_Val)      (fpclassify(_Val) <= 0)
+#define isinf(_Val)         (fpclassify(_Val) == FP_INFINITE)
+#define isnan(_Val)         (fpclassify(_Val) == FP_NAN)
+#endif
+
 
 //////////////////////////////////////////////////////////////////////////////////////////////////
 

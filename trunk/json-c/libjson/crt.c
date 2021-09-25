@@ -104,4 +104,38 @@ _CRT_STDIO_INLINE int __CRTDECL _vsnprintf(
 }
 
 
+__declspec(noalias)
+_Check_return_
+_ACRTIMP 
+long long __cdecl strtoll(
+    _In_z_                   char const * _String,
+    _Out_opt_ _Deref_post_z_ char ** _EndPtr,
+    _In_                     int         _Radix
+)
+{
+    UNREFERENCED_PARAMETER(_String);
+    UNREFERENCED_PARAMETER(_EndPtr);
+    UNREFERENCED_PARAMETER(_Radix);
+
+    return 0;
+}
+
+
+__declspec(noalias)
+_Check_return_
+_ACRTIMP 
+unsigned long long __cdecl strtoull(
+    _In_z_                   char const * _String,
+    _Out_opt_ _Deref_post_z_ char ** _EndPtr,
+    _In_                     int         _Radix
+)
+{
+    UNREFERENCED_PARAMETER(_String);
+    UNREFERENCED_PARAMETER(_EndPtr);
+    UNREFERENCED_PARAMETER(_Radix);
+
+    return 0;
+}
+
+
 //////////////////////////////////////////////////////////////////////////////////////////////////

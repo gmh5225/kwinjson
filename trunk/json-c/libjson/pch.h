@@ -25,6 +25,7 @@
 #define _CRT_NON_CONFORMING_SWPRINTFS
 #define INITGUID
 #define NTSTRSAFE_LIB
+//#define HAVE_DECL_INFINITY
 
 #pragma warning(disable:4200) // 使用了非标准扩展 : 结构/联合中的零大小数组
 #pragma warning(disable:4201) // unnamed struct/union
@@ -48,12 +49,14 @@
 #include <netpnp.h>
 #include <ntintsafe.h>
 #include <fltkernel.h>
-//#include <stdarg.h>
-//#include <stdio.h>
-//#include <stdlib.h>
-//#include <stddef.h>
+#include <stdarg.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <stddef.h>
 #include <Bcrypt.h>
-//#include <string.h>
+#include <string.h>
+#include <math.h>
+#include <corecrt_math.h>
 
 /*
 WDK7600.16385.1的内核头文件没有u_short的定义,用户层的头文件有u_short的定义.

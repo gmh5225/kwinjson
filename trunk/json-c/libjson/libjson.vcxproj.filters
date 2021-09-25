@@ -54,6 +54,9 @@
     <ClCompile Include="crt.c">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="..\json-c\arraylist.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\json-c\arraylist.h">
