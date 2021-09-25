@@ -394,7 +394,11 @@ int    __cdecl _isnan(_In_ double _X)
 }
 
 
-
+FILE * __cdecl __acrt_iob_func(unsigned _X)
+{
+    UNREFERENCED_PARAMETER(_X);
+    return 0;
+}
 
 
 //////////////////////////////////////////////////////////////////////////////////////////////////

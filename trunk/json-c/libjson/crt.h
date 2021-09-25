@@ -251,13 +251,9 @@ int    __cdecl _finite(_In_ double _X);
 int    __cdecl _isnan(_In_ double _X);
 #define isnan(x) _isnan(x)
 
+FILE * __cdecl __acrt_iob_func(unsigned _X);
 
-
-
-
-//__declspec(dllimport) double HUGE;
-//extern double HUGE;
-//double HUGE;
+double _HUGE;
 
 
 //////////////////////////////////////////////////////////////////////////////////////////////////

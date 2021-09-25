@@ -26,6 +26,7 @@
 #define INITGUID
 #define NTSTRSAFE_LIB
 //#define HAVE_DECL_INFINITY
+//#define _M_CEE_PURE
 
 #pragma warning(disable:4200) // 使用了非标准扩展 : 结构/联合中的零大小数组
 #pragma warning(disable:4201) // unnamed struct/union
