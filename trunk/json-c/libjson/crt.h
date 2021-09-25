@@ -91,6 +91,15 @@ typedef ULONG_PTR HCRYPTPROV;
 #endif //(NTDDI_VERSION >= NTDDI_WINXP)
 // certenrolld_end
 
+#define LC_ALL          0
+#define LC_COLLATE      1
+#define LC_CTYPE        2
+#define LC_MONETARY     3
+#define LC_NUMERIC      4
+#define LC_TIME         5
+
+void __cdecl _assert(_In_z_ const char * _Message, _In_z_ const char * _File, _In_ unsigned _Line);
+
 #define assert(_Expression) (void)( (!!(_Expression)) || (_assert(#_Expression, __FILE__, __LINE__), 0) )
 
 //_ACRTIMP int * __cdecl _errno(void){}
@@ -216,9 +225,7 @@ GetLastError(
     VOID
 );
 
-time_t __CRTDECL time(
-    _Out_opt_ time_t * const _Time
-);
+time_t __CRTDECL time(_Out_opt_ time_t * const _Time);
 
 int __cdecl _open(_In_z_ const char * _Filename, _In_ int _OpenFlag, ...);
 
@@ -248,7 +255,9 @@ int    __cdecl _isnan(_In_ double _X);
 
 
 
-
+//__declspec(dllimport) double HUGE;
+//extern double HUGE;
+//double HUGE;
 
 
 //////////////////////////////////////////////////////////////////////////////////////////////////

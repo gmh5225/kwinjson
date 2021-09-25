@@ -45,9 +45,19 @@ config.h要添加的内容如下：
 #define _NTDDSCRD_H2_
 #define _WINSVC_
 #define _WINSCARD_H_
+#define __WINCRYPT_H__
+#define _M_CEE_PURE
+#define _INC_IO
+#define _INC_LOCALE
+#define _INC_TIME
+
+
 
 #undef DEFINE_GUID
 #undef DEFINE_DEVPROPKEY
+//#undef _M_CEE_PURE
+
+
 
 
 --------------------------------------------------------------------------------------------------

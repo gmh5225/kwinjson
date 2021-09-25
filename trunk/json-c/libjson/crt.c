@@ -288,9 +288,7 @@ GetLastError(
 
 
 //static __inline 
-time_t __CRTDECL time(
-    _Out_opt_ time_t * const _Time
-)
+time_t __CRTDECL time(_Out_opt_ time_t * const _Time)
 {
     //return _time64(_Time);
     return 0;
