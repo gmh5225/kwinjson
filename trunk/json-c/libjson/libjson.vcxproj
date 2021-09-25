@@ -74,6 +74,7 @@
     <ClInclude Include="..\json-c\vasprintf_compat.h" />
     <ClInclude Include="crt.h" />
     <ClInclude Include="pch.h" />
+    <ClInclude Include="pre.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{4D2E700E-D3D2-40F9-864B-4BEE5884CC9A}</ProjectGuid>
@@ -180,6 +181,7 @@
       <SDLCheck>
       </SDLCheck>
       <CallingConvention>Cdecl</CallingConvention>
+      <ForcedIncludeFiles>$(KIT_SHARED_IncludePath)\warning.h;..\libjson\pch.h;..\libjson\crt.h;..\libjson\pre.h</ForcedIncludeFiles>
     </ClCompile>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">

@@ -1,6 +1,7 @@
 编译步骤和注意事项：
-1.想用cmake给搞一下。
-2.修改\trunk\json-c\config.h，如果没有请手动复制或建立。
+1.想用cmake给搞一下（trunk\json-c\json-c）。
+2.修改\trunk\json-c\config.h,在最后添加一行#include "../libjson/crt.h"。
+  另一个办法是：c++->高级->强制保护文件->;..\libjson\pch.h;..\libjson\crt.h;..\libjson\pre.h.
 3.
 
 --------------------------------------------------------------------------------------------------
