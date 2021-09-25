@@ -138,4 +138,133 @@ unsigned long long __cdecl strtoull(
 }
 
 
+char * strdup(const char * strSource)
+{
+    UNREFERENCED_PARAMETER(strSource);
+
+    return 0;
+}
+
+
+__declspec(noalias)
+_Check_return_opt_
+//_CRT_STDIO_INLINE //禁止内敛，否者，使用者找不到这个函数。
+int __CRTDECL fprintf(
+    _Inout_                       FILE * const _Stream,
+    _In_z_ _Printf_format_string_ char const * const _Format,
+    ...)
+{
+    int _Result = 0;
+    va_list _ArgList;
+    __crt_va_start(_ArgList, _Format);
+
+    //_Result = _vfprintf_l(_Stream, _Format, NULL, _ArgList);
+    //_Result = vsprintf_s(_Stream, _Format, NULL, _ArgList);
+
+    __crt_va_end(_ArgList);
+    return _Result;
+}
+
+
+void * __cdecl calloc(size_t number, size_t size)
+{
+    UNREFERENCED_PARAMETER(number);
+    UNREFERENCED_PARAMETER(size);
+
+    return 0;
+}
+
+
+//_Check_return_opt_
+//_CRT_STDIO_INLINE 
+int __CRTDECL vfprintf(
+    _Inout_                       FILE * const _Stream,
+    _In_z_ _Printf_format_string_ char const * const _Format,
+    va_list           _ArgList
+)
+{
+    UNREFERENCED_PARAMETER(_Stream);
+    UNREFERENCED_PARAMETER(_Format);
+    UNREFERENCED_PARAMETER(_ArgList);
+
+    return 0;
+}
+
+
+//_Check_return_
+//_CRT_STDIO_INLINE 
+int __CRTDECL _vscprintf(
+    _In_z_ _Printf_format_string_ char const * const _Format,
+    va_list           _ArgList
+)
+{
+    UNREFERENCED_PARAMETER(_Format);
+    UNREFERENCED_PARAMETER(_ArgList);
+
+    return 0;
+}
+
+
+BOOL
+__stdcall
+CryptAcquireContextA(
+    _Out_       HCRYPTPROV * phProv,
+    _In_opt_    LPCSTR    szContainer,
+    _In_opt_    LPCSTR    szProvider,
+    _In_        DWORD       dwProvType,
+    _In_        DWORD       dwFlags
+)
+{
+    UNREFERENCED_PARAMETER(phProv);
+    UNREFERENCED_PARAMETER(szContainer);
+    UNREFERENCED_PARAMETER(szProvider);
+    UNREFERENCED_PARAMETER(dwProvType);
+    UNREFERENCED_PARAMETER(dwFlags);
+
+    return 0;
+}
+
+
+BOOL
+WINAPI
+CryptGenRandom(
+    _In_                    HCRYPTPROV  hProv,
+    _In_                    DWORD   dwLen,
+    _Inout_updates_bytes_(dwLen)   BYTE * pbBuffer
+)
+{
+    UNREFERENCED_PARAMETER(hProv);
+    UNREFERENCED_PARAMETER(dwLen);
+    UNREFERENCED_PARAMETER(pbBuffer);
+
+    return 0;
+}
+
+
+BOOL
+WINAPI
+CryptReleaseContext(
+    _In_    HCRYPTPROV  hProv,
+    _In_    DWORD       dwFlags
+)
+{
+    UNREFERENCED_PARAMETER(hProv);
+    UNREFERENCED_PARAMETER(dwFlags);
+
+    return 0;
+}
+
+
+int __CRTDECL vprintf(
+    _In_z_ _Printf_format_string_ char const * const _Format,
+    va_list           _ArgList
+)
+{
+    UNREFERENCED_PARAMETER(_Format);
+    UNREFERENCED_PARAMETER(_ArgList);
+
+    return 0;
+}
+
+
 //////////////////////////////////////////////////////////////////////////////////////////////////

@@ -67,6 +67,50 @@
 #define isnan(_Val)         (fpclassify(_Val) == FP_NAN)
 #endif
 
+typedef int                 BOOL;
+
+typedef ULONG_PTR HCRYPTPROV;
+
+// dwFlags definitions for CryptAcquireContext
+#define CRYPT_VERIFYCONTEXT     0xF0000000
+#define CRYPT_NEWKEYSET         0x00000008
+#define CRYPT_DELETEKEYSET      0x00000010
+#define CRYPT_MACHINE_KEYSET    0x00000020
+#define CRYPT_SILENT            0x00000040
+#if (NTDDI_VERSION >= NTDDI_VISTA)
+#define CRYPT_DEFAULT_CONTAINER_OPTIONAL 0x00000080
+#endif //(NTDDI_VERSION >= NTDDI_VISTA)
+
+// certenrolld_begin -- PROV_RSA_*
+#define PROV_RSA_FULL           1
+#define PROV_RSA_SIG            2
+#define PROV_DSS                3
+#define PROV_FORTEZZA           4
+#define PROV_MS_EXCHANGE        5
+#define PROV_SSL                6
+#define PROV_RSA_SCHANNEL       12
+#define PROV_DSS_DH             13
+#define PROV_EC_ECDSA_SIG       14
+#define PROV_EC_ECNRA_SIG       15
+#define PROV_EC_ECDSA_FULL      16
+#define PROV_EC_ECNRA_FULL      17
+#define PROV_DH_SCHANNEL        18
+#define PROV_SPYRUS_LYNKS       20
+#define PROV_RNG                21
+#define PROV_INTEL_SEC          22
+#if (NTDDI_VERSION >= NTDDI_WINXP)
+#define PROV_REPLACE_OWF        23
+#define PROV_RSA_AES            24
+#endif //(NTDDI_VERSION >= NTDDI_WINXP)
+// certenrolld_end
+
+//_ACRTIMP int * __cdecl _errno(void){}
+//#define errno (*_errno())
+//int errno()
+//{
+//    return *_errno();
+//}
+
 
 //////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -112,6 +156,59 @@ _CRT_STDIO_INLINE int __CRTDECL _vsnprintf(
     _Out_writes_opt_(_BufferCount) _Post_maybez_ char * const _Buffer,
     _In_                                        size_t      const _BufferCount,
     _In_z_ _Printf_format_string_               char const * const _Format,
+    va_list           _ArgList
+);
+
+char * strdup(const char * strSource);
+
+__declspec(noalias)
+_Check_return_opt_
+//_CRT_STDIO_INLINE 
+int __CRTDECL fprintf(
+    _Inout_                       FILE * const _Stream,
+    _In_z_ _Printf_format_string_ char const * const _Format,
+    ...);
+
+void * __cdecl calloc(size_t number, size_t size);
+
+int __CRTDECL vfprintf(
+    _Inout_                       FILE * const _Stream,
+    _In_z_ _Printf_format_string_ char const * const _Format,
+    va_list           _ArgList
+);
+
+int __CRTDECL _vscprintf(
+    _In_z_ _Printf_format_string_ char const * const _Format,
+    va_list           _ArgList
+);
+
+BOOL
+__stdcall
+CryptAcquireContextA(
+    _Out_       HCRYPTPROV * phProv,
+    _In_opt_    LPCSTR    szContainer,
+    _In_opt_    LPCSTR    szProvider,
+    _In_        DWORD       dwProvType,
+    _In_        DWORD       dwFlags
+);
+
+BOOL
+WINAPI
+CryptGenRandom(
+    _In_                    HCRYPTPROV  hProv,
+    _In_                    DWORD   dwLen,
+    _Inout_updates_bytes_(dwLen)   BYTE * pbBuffer
+);
+
+BOOL
+WINAPI
+CryptReleaseContext(
+    _In_    HCRYPTPROV  hProv,
+    _In_    DWORD       dwFlags
+);
+
+int __CRTDECL vprintf(
+    _In_z_ _Printf_format_string_ char const * const _Format,
     va_list           _ArgList
 );
 

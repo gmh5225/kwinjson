@@ -57,6 +57,7 @@
 #include <string.h>
 #include <math.h>
 #include <corecrt_math.h>
+#include <assert.h>
 
 /*
 WDK7600.16385.1的内核头文件没有u_short的定义,用户层的头文件有u_short的定义.
