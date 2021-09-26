@@ -1,3 +1,10 @@
+/*
+说明：这里是CRT的内核实现。
+
+现在这里的函数实现大多为空，需要自己编写代码实现。
+*/
+
+
 #include "crt.h"
 #include "pch.h"
 
@@ -101,6 +108,9 @@ _CRT_STDIO_INLINE int __CRTDECL __vsnprintf(
     _In_z_ _Printf_format_string_               char const * const _Format,
     va_list           _ArgList
 )
+/*
+需要自己使用内核相关的API或算法实现，如：RTL系列的routine。
+*/
 {
     //return _vsnprintf_l(_Buffer, _BufferCount, _Format, NULL, _ArgList);
 
@@ -121,6 +131,9 @@ long long __cdecl strtoll(
     _Out_opt_ _Deref_post_z_ char ** _EndPtr,
     _In_                     int         _Radix
 )
+/*
+需要自己使用内核相关的API或算法实现，如：RTL系列的routine。
+*/
 {
     UNREFERENCED_PARAMETER(_String);
     UNREFERENCED_PARAMETER(_EndPtr);
@@ -138,6 +151,9 @@ unsigned long long __cdecl strtoull(
     _Out_opt_ _Deref_post_z_ char ** _EndPtr,
     _In_                     int         _Radix
 )
+/*
+需要自己使用内核相关的API或算法实现，如：RTL系列的routine。
+*/
 {
     UNREFERENCED_PARAMETER(_String);
     UNREFERENCED_PARAMETER(_EndPtr);
@@ -148,6 +164,9 @@ unsigned long long __cdecl strtoull(
 
 
 char * strdup(const char * strSource)
+/*
+需要自己使用内核相关的API或算法实现，如：RTL系列的routine。
+*/
 {
     UNREFERENCED_PARAMETER(strSource);
 
@@ -161,7 +180,11 @@ _Check_return_opt_
 int __CRTDECL fprintf(
     _Inout_                       FILE * const _Stream,
     _In_z_ _Printf_format_string_ char const * const _Format,
-    ...)
+    ...
+)
+/*
+需要自己使用内核相关的API或算法实现，如：RTL系列的routine。
+*/
 {
     int _Result = 0;
     va_list _ArgList;
@@ -176,6 +199,9 @@ int __CRTDECL fprintf(
 
 
 void * __cdecl calloc(size_t number, size_t size)
+/*
+需要自己使用内核相关的API或算法实现，如：RTL系列的routine。
+*/
 {
     UNREFERENCED_PARAMETER(number);
     UNREFERENCED_PARAMETER(size);
@@ -191,6 +217,9 @@ int __CRTDECL vfprintf(
     _In_z_ _Printf_format_string_ char const * const _Format,
     va_list           _ArgList
 )
+/*
+需要自己使用内核相关的API或算法实现，如：RTL系列的routine。
+*/
 {
     UNREFERENCED_PARAMETER(_Stream);
     UNREFERENCED_PARAMETER(_Format);
@@ -206,6 +235,9 @@ int __CRTDECL vscprintf(
     _In_z_ _Printf_format_string_ char const * const _Format,
     va_list           _ArgList
 )
+/*
+需要自己使用内核相关的API或算法实现，如：RTL系列的routine。
+*/
 {
     UNREFERENCED_PARAMETER(_Format);
     UNREFERENCED_PARAMETER(_ArgList);
@@ -223,6 +255,9 @@ CryptAcquireContextA(
     _In_        DWORD       dwProvType,
     _In_        DWORD       dwFlags
 )
+/*
+需要自己使用内核相关的API或算法实现，如：内核态的CNG里的routine。
+*/
 {
     UNREFERENCED_PARAMETER(phProv);
     UNREFERENCED_PARAMETER(szContainer);
@@ -241,6 +276,9 @@ CryptGenRandom(
     _In_                    DWORD   dwLen,
     _Inout_updates_bytes_(dwLen)   BYTE * pbBuffer
 )
+/*
+需要自己使用内核相关的API或算法实现。
+*/
 {
     UNREFERENCED_PARAMETER(hProv);
     UNREFERENCED_PARAMETER(dwLen);
@@ -256,6 +294,9 @@ CryptReleaseContext(
     _In_    HCRYPTPROV  hProv,
     _In_    DWORD       dwFlags
 )
+/*
+需要自己使用内核相关的API或算法实现，如：内核态的CNG里的routine。
+*/
 {
     UNREFERENCED_PARAMETER(hProv);
     UNREFERENCED_PARAMETER(dwFlags);
@@ -268,6 +309,9 @@ int __CRTDECL vprintf(
     _In_z_ _Printf_format_string_ char const * const _Format,
     va_list           _ArgList
 )
+/*
+需要自己使用内核相关的API或算法实现，如：RTL系列的routine。
+*/
 {
     UNREFERENCED_PARAMETER(_Format);
     UNREFERENCED_PARAMETER(_ArgList);
@@ -281,6 +325,9 @@ WINAPI
 GetVersion(
     VOID
 )
+/*
+需要自己使用内核相关的API或算法实现。
+*/
 {
     return 0;
 }
@@ -291,6 +338,9 @@ WINAPI
 GetLastError(
     VOID
 )
+/*
+需要自己使用内核相关的API或算法实现。
+*/
 {
     return 0;
 }
@@ -298,6 +348,9 @@ GetLastError(
 
 //static __inline 
 time_t __CRTDECL time(_Out_opt_ time_t * const _Time)
+/*
+需要自己使用内核相关的API或算法实现。
+*/
 {
     //return _time64(_Time);
     return 0;
@@ -305,6 +358,9 @@ time_t __CRTDECL time(_Out_opt_ time_t * const _Time)
 
 
 int __cdecl _open(_In_z_ const char * _Filename, _In_ int _OpenFlag, ...)
+/*
+需要自己使用内核相关的API或算法实现，如Zw系列的文件操作函数，不建议使用Flt系列。
+*/
 {
     UNREFERENCED_PARAMETER(_Filename);
     UNREFERENCED_PARAMETER(_OpenFlag);
@@ -314,6 +370,9 @@ int __cdecl _open(_In_z_ const char * _Filename, _In_ int _OpenFlag, ...)
 
 
 int __cdecl close(_In_ int _FileHandle)
+/*
+需要自己使用内核相关的API或算法实现，如Zw系列的文件操作函数，不建议使用Flt系列。
+*/
 {
     UNREFERENCED_PARAMETER(_FileHandle);
 
@@ -323,7 +382,11 @@ int __cdecl close(_In_ int _FileHandle)
 
 int __cdecl read(int _FileHandle, 
                  _Out_writes_bytes_(_MaxCharCount) void * _DstBuf, 
-                 _In_ unsigned int _MaxCharCount)
+                 _In_ unsigned int _MaxCharCount
+)
+/*
+需要自己使用内核相关的API或算法实现，如Zw系列的文件操作函数，不建议使用Flt系列。
+*/
 {
     UNREFERENCED_PARAMETER(_FileHandle);
     UNREFERENCED_PARAMETER(_DstBuf);
@@ -335,7 +398,11 @@ int __cdecl read(int _FileHandle,
 
 int __cdecl write(_In_ int _Filehandle, 
                   _In_reads_bytes_(_MaxCharCount) const void * _Buf,
-                  _In_ unsigned int _MaxCharCount)
+                  _In_ unsigned int _MaxCharCount
+)
+/*
+需要自己使用内核相关的API或算法实现，如Zw系列的文件操作函数，不建议使用Flt系列。
+*/
 {
     UNREFERENCED_PARAMETER(_Filehandle);
     UNREFERENCED_PARAMETER(_Buf);
@@ -346,6 +413,9 @@ int __cdecl write(_In_ int _Filehandle,
 
 
 char * __cdecl setlocale(_In_ int _Category, _In_opt_z_ const char * _Locale)
+/*
+需要自己使用内核相关的API或算法实现。
+*/
 {
     UNREFERENCED_PARAMETER(_Category);
     UNREFERENCED_PARAMETER(_Locale);
@@ -355,6 +425,9 @@ char * __cdecl setlocale(_In_ int _Category, _In_opt_z_ const char * _Locale)
 
 
 void __cdecl _assert(_In_z_ const char * _Message, _In_z_ const char * _File, _In_ unsigned _Line)
+/*
+需要自己使用内核相关的API或算法实现。
+*/
 {
     UNREFERENCED_PARAMETER(_Message);
     UNREFERENCED_PARAMETER(_File);
@@ -367,6 +440,9 @@ void __cdecl _wassert(
     _In_z_ wchar_t const * _File,
     _In_   unsigned       _Line
 )
+/*
+需要自己使用内核相关的API或算法实现。
+*/
 {
     UNREFERENCED_PARAMETER(_Message);
     UNREFERENCED_PARAMETER(_File);
@@ -375,12 +451,18 @@ void __cdecl _wassert(
 
 
 void __cdecl abort(void)
+/*
+需要自己使用内核相关的API或算法实现。
+*/
 {
 
 }
 
 
 char * __cdecl getenv(_In_z_ const char * _VarName)
+/*
+需要自己使用内核相关的API或算法实现。
+*/
 {
     UNREFERENCED_PARAMETER(_VarName);
     return 0;
@@ -388,6 +470,9 @@ char * __cdecl getenv(_In_z_ const char * _VarName)
 
 
 char * __cdecl strerror(_In_ int error)
+/*
+需要自己使用内核相关的API或算法实现。
+*/
 {
     UNREFERENCED_PARAMETER(error);
     return 0;
@@ -395,6 +480,9 @@ char * __cdecl strerror(_In_ int error)
 
 
 double __cdecl nan(_In_ char const * _X)
+/*
+需要自己使用内核相关的API或算法实现。
+*/
 {
     UNREFERENCED_PARAMETER(_X);
     return 0;
@@ -402,6 +490,9 @@ double __cdecl nan(_In_ char const * _X)
 
 
 int    __cdecl _finite(_In_ double _X)
+/*
+需要自己使用内核相关的API或算法实现，浮点数很少使用，不建议实现。
+*/
 {
     UNREFERENCED_PARAMETER(_X);
     return 0;
@@ -409,6 +500,9 @@ int    __cdecl _finite(_In_ double _X)
 
 
 int    __cdecl _isnan(_In_ double _X)
+/*
+需要自己使用内核相关的API或算法实现，浮点数很少使用，不建议实现。
+*/
 {
     UNREFERENCED_PARAMETER(_X);
     return 0;
@@ -416,6 +510,9 @@ int    __cdecl _isnan(_In_ double _X)
 
 
 FILE * __cdecl __acrt_iob_func(unsigned _X)
+/*
+需要自己使用内核相关的API或算法实现。
+*/
 {
     UNREFERENCED_PARAMETER(_X);
     return 0;
@@ -429,24 +526,11 @@ _CRT_STDIO_INLINE int __CRTDECL _vsprintf(
     _In_z_ _Printf_format_string_    char const * const _Format,
     va_list           _ArgList
 )
+/*
+需要自己使用内核相关的API或算法实现，如：RTL系列的routine。
+*/
 {
     //return _vsnprintf_l(_Buffer, (size_t)-1, _Format, NULL, _ArgList);
-    UNREFERENCED_PARAMETER(_Buffer);
-    UNREFERENCED_PARAMETER(_Format);
-    UNREFERENCED_PARAMETER(_ArgList);
-    return 0;
-}
-
-
-__declspec(noalias)
-_Success_(return >= 0)
-_Check_return_opt_ _CRT_INSECURE_DEPRECATE(vsprintf_s)
-_CRT_STDIO_INLINE int __CRTDECL __stdio_common_vfprintf(
-    _Pre_notnull_ _Always_(_Post_z_) char * const _Buffer,
-    _In_z_ _Printf_format_string_    char const * const _Format,
-    va_list           _ArgList
-)
-{
     UNREFERENCED_PARAMETER(_Buffer);
     UNREFERENCED_PARAMETER(_Format);
     UNREFERENCED_PARAMETER(_ArgList);
@@ -459,13 +543,15 @@ _CRT_STDIO_INLINE int __CRTDECL _vscprintf(
     _In_z_ _Printf_format_string_ char const * const _Format,
     va_list           _ArgList
 )
+/*
+需要自己使用内核相关的API或算法实现，如：RTL系列的routine。
+*/
 {
     //return _vscprintf_l(_Format, NULL, _ArgList);
     UNREFERENCED_PARAMETER(_Format);
     UNREFERENCED_PARAMETER(_ArgList);
     return 0;
 }
-
 
 
 //////////////////////////////////////////////////////////////////////////////////////////////////

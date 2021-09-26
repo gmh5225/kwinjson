@@ -1,5 +1,8 @@
 #pragma once
 
+
+//一下代码的功能是禁止包含应用层的头文件。
+//目的是避免与驱动层的代码出现命名的冲突。
 #define _MINWINBASE_
 #define _APISETFILE_
 #define _FILEAPIFROMAPP_H_
@@ -40,7 +43,3 @@
 #define _INC_IO
 #define _INC_LOCALE
 #define _INC_TIME
-//#define _VCRUNTIME_H XXX
-
-#undef DEFINE_GUID
-#undef DEFINE_DEVPROPKEY

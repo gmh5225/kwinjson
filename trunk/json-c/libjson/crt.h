@@ -109,13 +109,6 @@ void __cdecl _wassert(
 
 #define assert(_Expression) (void)( (!!(_Expression)) || (_assert(#_Expression, __FILE__, __LINE__), 0) )
 
-//_ACRTIMP int * __cdecl _errno(void){}
-//#define errno (*_errno())
-//int errno()
-//{
-//    return *_errno();
-//}
-
 int gbl_errno;
 #define errno   (gbl_errno)
 
@@ -268,15 +261,6 @@ FILE * __cdecl __acrt_iob_func(unsigned _X);
 _Success_(return >= 0)
 _Check_return_opt_ _CRT_INSECURE_DEPRECATE(vsprintf_s)
 _CRT_STDIO_INLINE int __CRTDECL _vsprintf(
-    _Pre_notnull_ _Always_(_Post_z_) char * const _Buffer,
-    _In_z_ _Printf_format_string_    char const * const _Format,
-    va_list           _ArgList
-);
-
-__declspec(noalias)
-_Success_(return >= 0)
-_Check_return_opt_ _CRT_INSECURE_DEPRECATE(vsprintf_s)
-_CRT_STDIO_INLINE int __CRTDECL __stdio_common_vfprintf(
     _Pre_notnull_ _Always_(_Post_z_) char * const _Buffer,
     _In_z_ _Printf_format_string_    char const * const _Format,
     va_list           _ArgList
