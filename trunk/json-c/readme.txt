@@ -1,64 +1,19 @@
 编译步骤和注意事项：
 1.想用cmake给搞一下（trunk\json-c\json-c）。
-2.修改\trunk\json-c\config.h,在最后添加一行#include "../libjson/crt.h"。
-  另一个办法是：c++->高级->强制保护文件->;..\libjson\pch.h;..\libjson\crt.h;..\libjson\pre.h.
-3.
+2.点击libjson.sln，愉快的编译吧！
+3.没有第三步。
+
 
 --------------------------------------------------------------------------------------------------
 
 
-config.h要添加的内容如下：
-
-#include "../libjson/crt.h"
-
-#define _MINWINBASE_
-#define _APISETFILE_
-#define _FILEAPIFROMAPP_H_
-#define _APISETDEBUG_
-#define _ERRHANDLING_H_
-#define _FIBERS_H_
-#define _NAMEDPIPE_H_
-#define _HEAPAPI_H_
-#define _IO_APISET_H_
-#define _SYNCHAPI_H_
-#define _THREADPOOLAPISET_H_
-#define _THREADPOOLLEGACYAPISET_H_
-#define _ENCLAVEAPI_H_
-#define _MEMORYAPI_H_
-#define _SYSINFOAPI_H_
-#define _PROCESSTHREADSAPI_H_
-#define _WINBASE_
-#define _APISECUREBASE_
-#define _WOW64APISET_H_
-#define _JOBAPISET2_H_
-#define _WINGDI_
-#define _WINSOCKAPI_
-#define _WINUSER_
-#define _PRSHT_H_
-#define _LZEXPAND_
-#define _IMM_
-#define _APISETCONSOLEL3_
-#define _WINSPOOL_
-#define _INC_SHELLAPI
-#define _INC_COMMDLG
-#define _OLE2_H_
-#define __oleidl_h__
-#define _NTDDSCRD_H2_
-#define _WINSVC_
-#define _WINSCARD_H_
-#define __WINCRYPT_H__
-#define _M_CEE_PURE
-#define _INC_IO
-#define _INC_LOCALE
-#define _INC_TIME
-
-
-
-#undef DEFINE_GUID
-#undef DEFINE_DEVPROPKEY
-//#undef _M_CEE_PURE
-
-
+配置编译原理或者注意事项：
+1.修改\trunk\json-c\config.h,在最后添加一行#include "../libjson/crt.h"。
+  另一个办法是：c++->高级->强制保护文件->;..\libjson\pch.h;..\libjson\crt.h;..\libjson\pre.h.
+2.工程的包含目录和库目录没有继承，而是指定目录。
+  之所以这样，是因为：严谨应用层和驱动层的系统的头文件混合。
+  之所以这样，是因为：命名有冲突，导致编译不过。
+3.因为是静态库，所以使用的驱动最好也不要包含应用层的头文件。
 
 
 --------------------------------------------------------------------------------------------------

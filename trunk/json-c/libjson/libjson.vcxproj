@@ -76,6 +76,9 @@
     <ClInclude Include="pch.h" />
     <ClInclude Include="pre.h" />
   </ItemGroup>
+  <ItemGroup>
+    <Text Include="..\readme.txt" />
+  </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{4D2E700E-D3D2-40F9-864B-4BEE5884CC9A}</ProjectGuid>
     <TemplateGuid>{0a049372-4c4d-4ea0-a64e-dc6ad88ceca1}</TemplateGuid>
