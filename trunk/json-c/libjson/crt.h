@@ -101,6 +101,12 @@ typedef ULONG_PTR HCRYPTPROV;
 
 void __cdecl _assert(_In_z_ const char * _Message, _In_z_ const char * _File, _In_ unsigned _Line);
 
+void __cdecl _wassert(
+    _In_z_ wchar_t const * _Message,
+    _In_z_ wchar_t const * _File,
+    _In_   unsigned       _Line
+);
+
 #define assert(_Expression) (void)( (!!(_Expression)) || (_assert(#_Expression, __FILE__, __LINE__), 0) )
 
 //_ACRTIMP int * __cdecl _errno(void){}
@@ -117,7 +123,10 @@ int gbl_errno;
 //////////////////////////////////////////////////////////////////////////////////////////////////
 
 
-int __CRTDECL sscanf(
+__declspec(noalias)
+_Check_return_ _CRT_INSECURE_DEPRECATE(sscanf_s)
+_CRT_STDIO_INLINE
+int __CRTDECL _sscanf(
     _In_z_                       char const * const _Buffer,
     _In_z_ _Scanf_format_string_ char const * const _Format,
     ...);
@@ -152,9 +161,11 @@ void * __cdecl realloc(
 extern __declspec(selectany) int _fltused = 1;
 #endif
 
+__declspec(noalias)
 _Success_(return >= 0)
 _Check_return_opt_
-_CRT_STDIO_INLINE int __CRTDECL _vsnprintf(
+_CRT_STDIO_INLINE 
+int __CRTDECL __vsnprintf(
     _Out_writes_opt_(_BufferCount) _Post_maybez_ char * const _Buffer,
     _In_                                        size_t      const _BufferCount,
     _In_z_ _Printf_format_string_               char const * const _Format,
@@ -179,7 +190,7 @@ int __CRTDECL vfprintf(
     va_list           _ArgList
 );
 
-int __CRTDECL _vscprintf(
+int __CRTDECL vscprintf(
     _In_z_ _Printf_format_string_ char const * const _Format,
     va_list           _ArgList
 );
@@ -254,7 +265,30 @@ int    __cdecl _isnan(_In_ double _X);
 
 FILE * __cdecl __acrt_iob_func(unsigned _X);
 
-double _HUGE;
+_Success_(return >= 0)
+_Check_return_opt_ _CRT_INSECURE_DEPRECATE(vsprintf_s)
+_CRT_STDIO_INLINE int __CRTDECL _vsprintf(
+    _Pre_notnull_ _Always_(_Post_z_) char * const _Buffer,
+    _In_z_ _Printf_format_string_    char const * const _Format,
+    va_list           _ArgList
+);
+
+__declspec(noalias)
+_Success_(return >= 0)
+_Check_return_opt_ _CRT_INSECURE_DEPRECATE(vsprintf_s)
+_CRT_STDIO_INLINE int __CRTDECL __stdio_common_vfprintf(
+    _Pre_notnull_ _Always_(_Post_z_) char * const _Buffer,
+    _In_z_ _Printf_format_string_    char const * const _Format,
+    va_list           _ArgList
+);
+
+_Check_return_
+_CRT_STDIO_INLINE int __CRTDECL _vscprintf(
+    _In_z_ _Printf_format_string_ char const * const _Format,
+    va_list           _ArgList
+);
+
+//double _HUGE;
 
 
 //////////////////////////////////////////////////////////////////////////////////////////////////

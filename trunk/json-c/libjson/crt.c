@@ -5,9 +5,10 @@
 //////////////////////////////////////////////////////////////////////////////////////////////////
 
 
-//_Check_return_ _CRT_INSECURE_DEPRECATE(sscanf_s)
-//_CRT_STDIO_INLINE 
-int __CRTDECL sscanf(
+__declspec(noalias)
+_Check_return_ _CRT_INSECURE_DEPRECATE(sscanf_s)
+_CRT_STDIO_INLINE 
+int __CRTDECL _sscanf(
     _In_z_                       char const * const _Buffer,
     _In_z_ _Scanf_format_string_ char const * const _Format,
     ...)
@@ -91,16 +92,24 @@ __declspec(selectany) int _fltused = 1;
 #endif
 
 
+__declspec(noalias)
 _Success_(return >= 0)
 _Check_return_opt_
-_CRT_STDIO_INLINE int __CRTDECL _vsnprintf(
+_CRT_STDIO_INLINE int __CRTDECL __vsnprintf(
     _Out_writes_opt_(_BufferCount) _Post_maybez_ char * const _Buffer,
     _In_                                        size_t      const _BufferCount,
     _In_z_ _Printf_format_string_               char const * const _Format,
     va_list           _ArgList
 )
 {
-    return _vsnprintf_l(_Buffer, _BufferCount, _Format, NULL, _ArgList);
+    //return _vsnprintf_l(_Buffer, _BufferCount, _Format, NULL, _ArgList);
+
+    UNREFERENCED_PARAMETER(_Buffer);
+    UNREFERENCED_PARAMETER(_BufferCount);
+    UNREFERENCED_PARAMETER(_Format);
+    UNREFERENCED_PARAMETER(_ArgList);
+
+    return 0;
 }
 
 
@@ -193,7 +202,7 @@ int __CRTDECL vfprintf(
 
 //_Check_return_
 //_CRT_STDIO_INLINE 
-int __CRTDECL _vscprintf(
+int __CRTDECL vscprintf(
     _In_z_ _Printf_format_string_ char const * const _Format,
     va_list           _ArgList
 )
@@ -353,6 +362,18 @@ void __cdecl _assert(_In_z_ const char * _Message, _In_z_ const char * _File, _I
 }
 
 
+void __cdecl _wassert(
+    _In_z_ wchar_t const * _Message,
+    _In_z_ wchar_t const * _File,
+    _In_   unsigned       _Line
+)
+{
+    UNREFERENCED_PARAMETER(_Message);
+    UNREFERENCED_PARAMETER(_File);
+    UNREFERENCED_PARAMETER(_Line);
+}
+
+
 void __cdecl abort(void)
 {
 
@@ -399,6 +420,52 @@ FILE * __cdecl __acrt_iob_func(unsigned _X)
     UNREFERENCED_PARAMETER(_X);
     return 0;
 }
+
+
+_Success_(return >= 0)
+_Check_return_opt_ _CRT_INSECURE_DEPRECATE(vsprintf_s)
+_CRT_STDIO_INLINE int __CRTDECL _vsprintf(
+    _Pre_notnull_ _Always_(_Post_z_) char * const _Buffer,
+    _In_z_ _Printf_format_string_    char const * const _Format,
+    va_list           _ArgList
+)
+{
+    //return _vsnprintf_l(_Buffer, (size_t)-1, _Format, NULL, _ArgList);
+    UNREFERENCED_PARAMETER(_Buffer);
+    UNREFERENCED_PARAMETER(_Format);
+    UNREFERENCED_PARAMETER(_ArgList);
+    return 0;
+}
+
+
+__declspec(noalias)
+_Success_(return >= 0)
+_Check_return_opt_ _CRT_INSECURE_DEPRECATE(vsprintf_s)
+_CRT_STDIO_INLINE int __CRTDECL __stdio_common_vfprintf(
+    _Pre_notnull_ _Always_(_Post_z_) char * const _Buffer,
+    _In_z_ _Printf_format_string_    char const * const _Format,
+    va_list           _ArgList
+)
+{
+    UNREFERENCED_PARAMETER(_Buffer);
+    UNREFERENCED_PARAMETER(_Format);
+    UNREFERENCED_PARAMETER(_ArgList);
+    return 0;
+}
+
+
+_Check_return_
+_CRT_STDIO_INLINE int __CRTDECL _vscprintf(
+    _In_z_ _Printf_format_string_ char const * const _Format,
+    va_list           _ArgList
+)
+{
+    //return _vscprintf_l(_Format, NULL, _ArgList);
+    UNREFERENCED_PARAMETER(_Format);
+    UNREFERENCED_PARAMETER(_ArgList);
+    return 0;
+}
+
 
 
 //////////////////////////////////////////////////////////////////////////////////////////////////
