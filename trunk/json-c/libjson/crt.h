@@ -157,7 +157,7 @@ extern __declspec(selectany) int _fltused = 1;
 __declspec(noalias)
 _Success_(return >= 0)
 _Check_return_opt_
-_CRT_STDIO_INLINE 
+_CRT_STDIO_INLINE
 int __CRTDECL __vsnprintf(
     _Out_writes_opt_(_BufferCount) _Post_maybez_ char * const _Buffer,
     _In_                                        size_t      const _BufferCount,

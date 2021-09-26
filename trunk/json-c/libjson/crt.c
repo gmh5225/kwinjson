@@ -14,11 +14,12 @@
 
 __declspec(noalias)
 _Check_return_ _CRT_INSECURE_DEPRECATE(sscanf_s)
-_CRT_STDIO_INLINE 
+_CRT_STDIO_INLINE
 int __CRTDECL _sscanf(
     _In_z_                       char const * const _Buffer,
     _In_z_ _Scanf_format_string_ char const * const _Format,
-    ...)
+    ...
+)
 {
     int _Result = 0;
     va_list _ArgList;
@@ -125,7 +126,7 @@ _CRT_STDIO_INLINE int __CRTDECL __vsnprintf(
 
 __declspec(noalias)
 _Check_return_
-_ACRTIMP 
+_ACRTIMP
 long long __cdecl strtoll(
     _In_z_                   char const * _String,
     _Out_opt_ _Deref_post_z_ char ** _EndPtr,
@@ -145,7 +146,7 @@ long long __cdecl strtoll(
 
 __declspec(noalias)
 _Check_return_
-_ACRTIMP 
+_ACRTIMP
 unsigned long long __cdecl strtoull(
     _In_z_                   char const * _String,
     _Out_opt_ _Deref_post_z_ char ** _EndPtr,
@@ -360,6 +361,7 @@ time_t __CRTDECL time(_Out_opt_ time_t * const _Time)
 int __cdecl _open(_In_z_ const char * _Filename, _In_ int _OpenFlag, ...)
 /*
 需要自己使用内核相关的API或算法实现，如Zw系列的文件操作函数，不建议使用Flt系列。
+尽管Flt的那个实例句柄可以为空，但这里没有阐述可传，需默认指定。
 */
 {
     UNREFERENCED_PARAMETER(_Filename);
@@ -371,7 +373,7 @@ int __cdecl _open(_In_z_ const char * _Filename, _In_ int _OpenFlag, ...)
 
 int __cdecl close(_In_ int _FileHandle)
 /*
-需要自己使用内核相关的API或算法实现，如Zw系列的文件操作函数，不建议使用Flt系列。
+需要自己使用内核相关的API或算法实现，如Zw或Flt系列的文件操作函数。
 */
 {
     UNREFERENCED_PARAMETER(_FileHandle);
@@ -380,12 +382,12 @@ int __cdecl close(_In_ int _FileHandle)
 }
 
 
-int __cdecl read(int _FileHandle, 
-                 _Out_writes_bytes_(_MaxCharCount) void * _DstBuf, 
+int __cdecl read(int _FileHandle,
+                 _Out_writes_bytes_(_MaxCharCount) void * _DstBuf,
                  _In_ unsigned int _MaxCharCount
 )
 /*
-需要自己使用内核相关的API或算法实现，如Zw系列的文件操作函数，不建议使用Flt系列。
+需要自己使用内核相关的API或算法实现，如Zw或Flt系列的文件操作函数。
 */
 {
     UNREFERENCED_PARAMETER(_FileHandle);
@@ -396,12 +398,12 @@ int __cdecl read(int _FileHandle,
 }
 
 
-int __cdecl write(_In_ int _Filehandle, 
+int __cdecl write(_In_ int _Filehandle,
                   _In_reads_bytes_(_MaxCharCount) const void * _Buf,
                   _In_ unsigned int _MaxCharCount
 )
 /*
-需要自己使用内核相关的API或算法实现，如Zw系列的文件操作函数，不建议使用Flt系列。
+需要自己使用内核相关的API或算法实现，如Zw或Flt系列的文件操作函数。
 */
 {
     UNREFERENCED_PARAMETER(_Filehandle);
