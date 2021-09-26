@@ -183,7 +183,7 @@
       <UndefinePreprocessorDefinitions>%(UndefinePreprocessorDefinitions)</UndefinePreprocessorDefinitions>
       <SDLCheck>
       </SDLCheck>
-      <CallingConvention>FastCall</CallingConvention>
+      <CallingConvention>Cdecl</CallingConvention>
       <ForcedIncludeFiles>$(KIT_SHARED_IncludePath)\warning.h;..\libjson\pch.h;..\libjson\crt.h;..\libjson\pre.h</ForcedIncludeFiles>
     </ClCompile>
   </ItemDefinitionGroup>
