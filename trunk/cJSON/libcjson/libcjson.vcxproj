@@ -37,7 +37,7 @@
   <ItemGroup>
     <ClInclude Include="..\cJSON\cJSON.h" />
     <ClInclude Include="crt.h" />
-    <ClInclude Include="test.h" />
+    <ClInclude Include="pch.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\cJSON\cJSON.c" />
