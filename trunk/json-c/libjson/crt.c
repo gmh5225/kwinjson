@@ -103,7 +103,8 @@ __declspec(selectany) int _fltused = 1;
 __declspec(noalias)
 _Success_(return >= 0)
 _Check_return_opt_
-_CRT_STDIO_INLINE int __CRTDECL __vsnprintf(
+//_CRT_STDIO_INLINE 
+int __CRTDECL vsnprintf(
     _Out_writes_opt_(_BufferCount) _Post_maybez_ char * const _Buffer,
     _In_                                        size_t      const _BufferCount,
     _In_z_ _Printf_format_string_               char const * const _Format,
@@ -204,10 +205,12 @@ void * __cdecl calloc(size_t number, size_t size)
 需要自己使用内核相关的API或算法实现，如：RTL系列的routine。
 */
 {
-    UNREFERENCED_PARAMETER(number);
-    UNREFERENCED_PARAMETER(size);
+    void * ret = ExAllocatePoolWithTag(PagedPool, number * size, TAG);
+    if (ret) {
+        RtlZeroMemory(ret, number * size);
+    }
 
-    return 0;
+    return ret;
 }
 
 
@@ -376,9 +379,8 @@ int __cdecl close(_In_ int _FileHandle)
 需要自己使用内核相关的API或算法实现，如Zw或Flt系列的文件操作函数。
 */
 {
-    UNREFERENCED_PARAMETER(_FileHandle);
-
-    return 0;
+    return ZwClose(_FileHandle);
+    //return FltClose(hFile);
 }
 
 
@@ -431,9 +433,11 @@ void __cdecl _assert(_In_z_ const char * _Message, _In_z_ const char * _File, _I
 需要自己使用内核相关的API或算法实现。
 */
 {
-    UNREFERENCED_PARAMETER(_Message);
-    UNREFERENCED_PARAMETER(_File);
-    UNREFERENCED_PARAMETER(_Line);
+    //ASSERT(_Message);//这个更简单。
+
+    if (!(_Message)) {
+        RtlAssert((PVOID)_Message, (PVOID)_File, _Line, NULL);
+    } 
 }
 
 
@@ -446,9 +450,11 @@ void __cdecl _wassert(
 需要自己使用内核相关的API或算法实现。
 */
 {
-    UNREFERENCED_PARAMETER(_Message);
-    UNREFERENCED_PARAMETER(_File);
-    UNREFERENCED_PARAMETER(_Line);
+    //ASSERT(_Message);//这个更简单。
+
+    if (!(_Message)) {
+        RtlAssert((PVOID)_Message, (PVOID)_File, _Line, NULL);
+    }
 }
 
 
