@@ -26,3 +26,15 @@
 
 
 --------------------------------------------------------------------------------------------------
+
+
+在x86-32的编译下，因为设置的是__stdcall，所以有几处源码需要修改：
+1.arraylist.c的array_list_sort函数的回调函数的原型应该加上__cdecl。
+2.arraylist.c的array_list_bsearch函数的回调函数的原型应该加上__cdecl。
+3.arraylist.h的array_list_bsearch函数的回调函数的原型应该加上__cdecl。
+4.json_object.c的json_object_array_bsearch函数的回调函数的原型应该加上__cdecl。
+5.json_object.h的json_object_array_bsearch函数的回调函数的原型应该加上__cdecl。
+6.strerror_override.c的getenv函数的原型应该加上__cdecl。
+
+
+--------------------------------------------------------------------------------------------------
