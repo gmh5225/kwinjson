@@ -165,7 +165,7 @@ int __CRTDECL vsnprintf(
     va_list           _ArgList
 );
 
-char * strdup(const char * strSource);
+char * __cdecl strdup(const char * strSource);
 
 __declspec(noalias)
 _Check_return_opt_

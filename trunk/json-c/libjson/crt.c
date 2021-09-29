@@ -165,7 +165,7 @@ unsigned long long __cdecl strtoull(
 }
 
 
-char * strdup(const char * strSource)
+char * __cdecl strdup(const char * strSource)
 /*
 需要自己使用内核相关的API或算法实现，如：RTL系列的routine。
 */
