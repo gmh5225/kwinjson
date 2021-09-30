@@ -2,7 +2,7 @@
 #include<stdlib.h>
 #include<string.h>
 #include <Windows.h>
-#include "../cJSON/cJSON.h"
+#include "..\cJSON\cJSON.h"
 
 
 #ifdef _WIN64  
@@ -32,9 +32,9 @@ void write()
     char * out = cJSON_Print(root);   // 将json形式转换成字符串
     printf("%s\n", out);
 
-    // 释放内存  
     cJSON_Delete(root);
-    free(out);
+    //free(out);//禁止使用free。
+    cJSON_free(out);
 }
 
 
@@ -43,14 +43,14 @@ void read()
     cJSON * json, * name, * sex, * age;
     const char * out = "{\"name\":\"luffy\",\"sex\":\"man\",\"age\":19}";
 
-    json = cJSON_Parse(out); //解析成json形式
-    name = cJSON_GetObjectItem(json, "name");  //获取键值内容
+    json = cJSON_Parse(out);
+    name = cJSON_GetObjectItem(json, "name"); 
     sex = cJSON_GetObjectItem(json, "sex");
     age = cJSON_GetObjectItem(json, "age");
 
     printf("name:%s,sex:%s,age:%d\n", name->valuestring, sex->valuestring, age->valueint);
 
-    cJSON_Delete(json);  //释放内存 
+    cJSON_Delete(json);
 }
 
 
