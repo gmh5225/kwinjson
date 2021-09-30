@@ -188,8 +188,8 @@ void JsonTest()
 
     int ret = supports_full_hd(monitor);
 
-    free(monitor);
-    free(monitor_with_helpers);
+    cJSON_free(monitor);
+    cJSON_free(monitor_with_helpers);
 }
 
 

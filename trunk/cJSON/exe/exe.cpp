@@ -33,7 +33,7 @@ void write()
     printf("%s\n", out);
 
     cJSON_Delete(root);
-    //free(out);//禁止使用free。
+    //free(out);//DLL的方式禁止使用free。
     cJSON_free(out);
 }
 
