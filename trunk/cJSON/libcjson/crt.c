@@ -88,6 +88,8 @@ cjson.c中有两处使用allocate的地方。
 这里两处都有个else的处理，即hooks->reallocate == NULL
 其中一处：硬编码buffer->length == 256.
 另一处假定：newsize >= p->offset + 1.
+
+必须释放原来的内容，因为调用代码中已经设置为NULL了。
 */
 {
     void * ret = malloc(_Size);
