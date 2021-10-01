@@ -25,6 +25,7 @@
 #define _CRT_NON_CONFORMING_SWPRINTFS
 #define INITGUID
 #define NTSTRSAFE_LIB
+#define USE_LIBCNTPR 1 //https://docs.microsoft.com/en-us/previous-versions/ff554062(v=vs.85)
 
 #pragma warning(disable:4200) // 使用了非标准扩展 : 结构/联合中的零大小数组
 #pragma warning(disable:4201) // unnamed struct/union

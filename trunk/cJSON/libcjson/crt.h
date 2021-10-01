@@ -1,3 +1,15 @@
+/*
+
+
+注意：
+1.在驱动下:cJSON.c的print_number函数的length = sprintf((char*)number_buffer, "%1.15g", d);
+  得到的只有一个g而不是浮点数。
+  即使加上KeSaveExtendedProcessorState和KeRestoreExtendedProcessorState，也是依旧。
+2.cjson里的说有数字都是浮点数内部处理。
+3.不建议在驱动下使用浮点数，包括整数。
+*/
+
+
 #pragma once
 
 

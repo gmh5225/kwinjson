@@ -1,5 +1,6 @@
 #include "crt.h"
 #include "pch.h"
+#include "../cJSON/cJSON.h"
 
 
 //////////////////////////////////////////////////////////////////////////////////////////////////
@@ -75,21 +76,51 @@ void * __cdecl realloc(
     _Pre_maybenull_ _Post_invalid_ void * _Block,
     _In_ _CRT_GUARDOVERFLOW        size_t _Size
 )
+/*
+这里要有复制操作。
+
+另一个思路是禁用realloc函数，如：global_hooks.reallocate = NULL;
+或者声明realloc函数的地址是null.
+
+一般断定：新申请的内存大小大于原来的内存的大小。
+
+cjson.c中有两处使用allocate的地方。
+这里两处都有个else的处理，即hooks->reallocate == NULL
+其中一处：硬编码buffer->length == 256.
+另一处假定：newsize >= p->offset + 1.
+*/
 {
-    if (_Block) {
-        ExFreePoolWithTag(_Block, TAG);
+    void * ret = malloc(_Size);
+    if (!ret) {
+        return ret;
     }
 
-    return ExAllocatePoolWithTag(PagedPool, _Size, TAG);
+    memset(ret, 0, _Size);
+
+    if (_Block) {
+        memcpy(ret, _Block, min(256, _Size));
+        free(_Block);
+    }
+
+    return ret;
 }
+
+
+//typedef __declspec(noalias) void *  (__cdecl * realloc_fn)(void * _Block, size_t _Size);
+// realloc_fn  realloc;
+//__declspec(noalias) void * (__cdecl * realloc)(void * _Block, size_t _Size);
 
 
 //https://docs.microsoft.com/en-us/cpp/dotnet/converting-projects-from-mixed-mode-to-pure-intermediate-language?view=msvc-160
 #ifndef __FLTUSED__
 #define __FLTUSED__
 //extern "C" __declspec(selectany) int _fltused = 1;
-__declspec(selectany) int _fltused = 1;
+//__declspec(selectany) int _fltused = 1;
 #endif
+
+
+//使用的工程加入这个：
+//TARGETLIBS = $(DDK_LIB_PATH)\libcntpr.lib
 
 
 //////////////////////////////////////////////////////////////////////////////////////////////////
