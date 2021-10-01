@@ -22,11 +22,6 @@ char * create_monitor(void)
 //create a monitor with a list of supported resolutions
 //NOTE: Returns a heap allocated string, you are required to free it after use.
 {
-    const unsigned int resolution_numbers[3][2] = {
-        {1280, 720},
-        {1920, 1080},
-        {3840, 2160}
-    };
     char * string = NULL;
     cJSON * name = NULL;
     cJSON * resolutions = NULL;
@@ -54,20 +49,20 @@ char * create_monitor(void)
     }
     cJSON_AddItemToObject(monitor, "resolutions", resolutions);
 
-    for (index = 0; index < (sizeof(resolution_numbers) / (2 * sizeof(int))); ++index) {
+    for (index = 0; index < 3; ++index) {
         resolution = cJSON_CreateObject();
         if (resolution == NULL) {
             goto end;
         }
         cJSON_AddItemToArray(resolutions, resolution);
 
-        width = cJSON_CreateNumber(resolution_numbers[index][0]);
+        width = cJSON_CreateString("test");
         if (width == NULL) {
             goto end;
         }
         cJSON_AddItemToObject(resolution, "width", width);
 
-        height = cJSON_CreateNumber(resolution_numbers[index][1]);
+        height = cJSON_CreateString("test");
         if (height == NULL) {
             goto end;
         }
@@ -85,7 +80,7 @@ char * create_monitor(void)
         } __finally {
             KeRestoreExtendedProcessorState(&SaveState);
         }
-    }    
+    }
 
 end:
     cJSON_Delete(monitor);
@@ -96,11 +91,6 @@ end:
 char * create_monitor_with_helpers(void)
 //NOTE: Returns a heap allocated string, you are required to free it after use.
 {
-    const unsigned int resolution_numbers[3][2] = {
-        {1280, 720},
-        {1920, 1080},
-        {3840, 2160}
-    };
     char * string = NULL;
     cJSON * resolutions = NULL;
     size_t index = 0;
@@ -116,14 +106,14 @@ char * create_monitor_with_helpers(void)
         goto end;
     }
 
-    for (index = 0; index < (sizeof(resolution_numbers) / (2 * sizeof(int))); ++index) {
+    for (index = 0; index < 3; ++index) {
         cJSON * resolution = cJSON_CreateObject();
 
-        if (cJSON_AddNumberToObject(resolution, "width", resolution_numbers[index][0]) == NULL) {
+        if (cJSON_AddStringToObject(resolution, "width", "test") == NULL) {
             goto end;
         }
 
-        if (cJSON_AddNumberToObject(resolution, "height", resolution_numbers[index][1]) == NULL) {
+        if (cJSON_AddStringToObject(resolution, "height", "test") == NULL) {
             goto end;
         }
 
@@ -148,6 +138,7 @@ int supports_full_hd(const char * const monitor)
     const cJSON * resolutions = NULL;
     const cJSON * name = NULL;
     int status = 0;
+
     cJSON * monitor_json = cJSON_Parse(monitor);
     if (monitor_json == NULL) {
         const char * error_ptr = cJSON_GetErrorPtr();
@@ -168,16 +159,6 @@ int supports_full_hd(const char * const monitor)
     {
         cJSON * width = cJSON_GetObjectItemCaseSensitive(resolution, "width");
         cJSON * height = cJSON_GetObjectItemCaseSensitive(resolution, "height");
-
-        if (!cJSON_IsNumber(width) || !cJSON_IsNumber(height)) {
-            status = 0;
-            goto end;
-        }
-
-        if ((width->valuedouble == 1920) && (height->valuedouble == 1080)) {
-            status = 1;
-            goto end;
-        }
     }
 
 end:
