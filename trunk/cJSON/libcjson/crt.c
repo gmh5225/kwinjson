@@ -40,6 +40,8 @@ double __cdecl strtod(
     UNREFERENCED_PARAMETER(_String);
     UNREFERENCED_PARAMETER(_EndPtr);
 
+    ASSERTMSG("本工程在驱动下暂不支持浮点数。", FALSE);
+
     return 0;
 }
 
@@ -51,7 +53,8 @@ void __cdecl free(
 )
 {
     if (_Block) {
-        ExFreePoolWithTag(_Block, TAG);
+        PJSON_POOL p = CONTAINING_RECORD(_Block, JSON_POOL, Pool);
+        ExFreePoolWithTag(p, TAG);
     }
 }
 
@@ -63,7 +66,22 @@ void * __cdecl malloc(
     _In_ _CRT_GUARDOVERFLOW size_t _Size
 )
 {
-    return ExAllocatePoolWithTag(PagedPool, _Size, TAG);
+    if (0 == _Size) {
+        return NULL;
+    }
+
+    void * ret = ExAllocatePoolWithTag(PagedPool, _Size + sizeof(SIZE_T), TAG);
+    if (NULL == ret) {
+        return ret;
+    }
+
+    memset(ret, 0, _Size + sizeof(SIZE_T));
+
+    PJSON_POOL temp = (PJSON_POOL)ret;
+
+    temp->NumberOfBytes = _Size;
+
+    return (PBYTE)ret + sizeof(SIZE_T);
 }
 
 
@@ -95,10 +113,9 @@ cjson.c中有两处使用allocate的地方。
         return ret;
     }
 
-    memset(ret, 0, _Size);
-
     if (_Block) {
-        memcpy(ret, _Block, min(256, _Size));
+        PJSON_POOL p = CONTAINING_RECORD(_Block, JSON_POOL, Pool);
+        memcpy(ret, _Block, min(p->NumberOfBytes, _Size));
         free(_Block);
     }
 
@@ -111,11 +128,11 @@ cjson.c中有两处使用allocate的地方。
 
 
 //https://docs.microsoft.com/en-us/cpp/dotnet/converting-projects-from-mixed-mode-to-pure-intermediate-language?view=msvc-160
-#ifndef __FLTUSED__
-#define __FLTUSED__
-//extern "C" __declspec(selectany) int _fltused = 1;
-//__declspec(selectany) int _fltused = 1;//另一个解决思路：在使用的工程加入$(DDK_LIB_PATH)\libcntpr.lib.
-#endif
+//#ifndef __FLTUSED__
+//#define __FLTUSED__
+////extern "C" __declspec(selectany) int _fltused = 1;
+////__declspec(selectany) int _fltused = 1;//另一个解决思路：在使用的工程加入$(DDK_LIB_PATH)\libcntpr.lib.
+//#endif
 
 
 //////////////////////////////////////////////////////////////////////////////////////////////////
