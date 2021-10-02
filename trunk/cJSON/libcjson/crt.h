@@ -21,7 +21,9 @@
 
 typedef struct _JSON_POOL {
     SIZE_T NumberOfBytes;
-    BYTE Pool[0];
+    //可以考虑添加其他的如：TAG等。
+
+    BYTE Pool[0];//这是结构的最后一个成员，同时也不要访问这个成员。
 } JSON_POOL;
 typedef JSON_POOL * PJSON_POOL;
 

@@ -75,13 +75,13 @@ void * __cdecl malloc(
         return ret;
     }
 
-    memset(ret, 0, _Size + sizeof(SIZE_T));
+    //memset(ret, 0, _Size + sizeof(SIZE_T));//未来优化应该去掉此行。未来便于排错应该加上此行。
 
     PJSON_POOL temp = (PJSON_POOL)ret;
 
     temp->NumberOfBytes = _Size;
 
-    return (PBYTE)ret + sizeof(SIZE_T);
+    return (PBYTE)ret + FIELD_OFFSET(JSON_POOL, Pool); // sizeof(SIZE_T)
 }
 
 
@@ -98,12 +98,9 @@ void * __cdecl realloc(
 另一个思路是禁用realloc函数，如：global_hooks.reallocate = NULL;
 或者声明realloc函数的地址是null.
 
-一般断定：新申请的内存大小大于原来的内存的大小。
+一般用法是断定：新申请的内存大小大于原来的内存的大小。
 
-cjson.c中有两处使用allocate的地方。
-这里两处都有个else的处理，即hooks->reallocate == NULL
-其中一处：硬编码buffer->length == 256.
-另一处假定：newsize >= p->offset + 1.
+必须解决：原来内存的大小问题。这里采用是一个封装的结构:JSON_POOL.
 
 必须释放原来的内容，因为调用代码中已经设置为NULL了。
 */
@@ -113,9 +110,11 @@ cjson.c中有两处使用allocate的地方。
         return ret;
     }
 
+    memset(ret, 0, _Size);
+
     if (_Block) {
         PJSON_POOL p = CONTAINING_RECORD(_Block, JSON_POOL, Pool);
-        memcpy(ret, _Block, min(p->NumberOfBytes, _Size));
+        memcpy(ret, _Block, min(p->NumberOfBytes, _Size));//只能取两者的最小者，否则都可能内存越界。
         free(_Block);
     }
 
