@@ -70,12 +70,12 @@ void * __cdecl malloc(
         return NULL;
     }
 
-    void * ret = ExAllocatePoolWithTag(PagedPool, _Size + sizeof(SIZE_T), TAG);
+    void * ret = ExAllocatePoolWithTag(PagedPool, _Size + FIELD_OFFSET(JSON_POOL, Pool), TAG);
     if (NULL == ret) {
         return ret;
     }
 
-    //memset(ret, 0, _Size + sizeof(SIZE_T));//未来优化应该去掉此行。未来便于排错应该加上此行。
+    //memset(ret, 0, _Size + FIELD_OFFSET(JSON_POOL, Pool));//未来优化应该去掉此行。未来便于排错应该加上此行。
 
     PJSON_POOL temp = (PJSON_POOL)ret;
 
