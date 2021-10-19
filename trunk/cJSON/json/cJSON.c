@@ -106,6 +106,27 @@ int __CRTDECL sscanf(
 }
 
 
+//__int64 _strtoi64(const char* strSource, char** endptr, int base)
+int __cdecl _strtoi(_In_z_ const char* _String,
+                    _Out_opt_ _Deref_post_z_ char** _EndPtr,
+                    _In_ int _Radix)
+{
+    if (NULL == _EndPtr) {
+        return 0;
+    }
+
+    int test = 0;
+
+    UNREFERENCED_PARAMETER(_Radix);
+
+    sscanf(_String, "%d", &test);//这里得到的值总是为0，sscanf的实现有问题。
+
+    *_EndPtr = (char*)_String + strlen(_String);
+
+    return test;
+}
+
+
 //_Check_return_
 //_ACRTIMP double __cdecl strtod(
 //    _In_z_                   char const * _String,
@@ -122,7 +143,7 @@ double __cdecl strtod(const char * strSource, char ** endptr)
     UNREFERENCED_PARAMETER(strSource);
     UNREFERENCED_PARAMETER(endptr);
 
-    return 0;
+    return (double)_strtoi(strSource, endptr, 10);
 }
 
 
@@ -589,12 +610,14 @@ static cJSON_bool compare_double(double a, double b)
 static cJSON_bool print_number(const cJSON * const item, printbuffer * const output_buffer)
 {
     unsigned char * output_pointer = NULL;
-    double d = item->valuedouble;
+    //double d = item->valuedouble;
+    int d = item->valueint;
     int length = 0;
     size_t i = 0;
     unsigned char number_buffer[26] = {0}; /* temporary buffer to print the number into */
     unsigned char decimal_point = get_decimal_point();
-    double test = 0.0;
+    //double test = 0.0;
+    int test = 0;
 
     if (output_buffer == NULL) {
         return false;
@@ -605,12 +628,12 @@ static cJSON_bool print_number(const cJSON * const item, printbuffer * const out
         length = sprintf((char *)number_buffer, "null");
     } else {
         /* Try 15 decimal places of precision to avoid nonsignificant nonzero digits */
-        length = sprintf((char *)number_buffer, "%lld", d);//%1.15g
+        length = sprintf((char *)number_buffer, "%d", d);//%1.15g
 
         /* Check whether the original double can be recovered */
-        if ((sscanf((char *)number_buffer, "%lld", &test) != 1) || !compare_double((double)test, d)) {//%lg
+        if ((sscanf((char *)number_buffer, "%d", &test) != 1) || !compare_double((double)test, d)) {//%lg
             /* If not, print with 17 decimal places of precision */
-            length = sprintf((char *)number_buffer, "%lld", d);//%1.17g
+            length = sprintf((char *)number_buffer, "%d", d);//%1.17g
         }
     }
 

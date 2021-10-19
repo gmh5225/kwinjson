@@ -73,9 +73,17 @@ char * create_monitor(void)
         cJSON_AddItemToObject(resolution, "height", height);
     }
 
-    string = cJSON_Print(monitor);
-    if (string == NULL) {
-        fprintf(stderr, "Failed to print monitor.\n");
+    XSTATE_SAVE SaveState;
+    NTSTATUS Status = KeSaveExtendedProcessorState(XSTATE_MASK_LEGACY, &SaveState);
+    if (NT_SUCCESS(Status)) {
+        __try {
+            string = cJSON_Print(monitor);
+            if (string == NULL) {
+                fprintf(stderr, "Failed to print monitor.\n");
+            }
+        } __finally {
+            KeRestoreExtendedProcessorState(&SaveState);
+        }
     }
 
 end:
@@ -121,9 +129,17 @@ char * create_monitor_with_helpers(void)
         cJSON_AddItemToArray(resolutions, resolution);
     }
 
-    string = cJSON_Print(monitor);
-    if (string == NULL) {
-        fprintf(stderr, "Failed to print monitor.\n");
+    XSTATE_SAVE SaveState;
+    NTSTATUS Status = KeSaveExtendedProcessorState(XSTATE_MASK_LEGACY, &SaveState);
+    if (NT_SUCCESS(Status)) {
+        __try {
+            string = cJSON_Print(monitor);
+            if (string == NULL) {
+                fprintf(stderr, "Failed to print monitor.\n");
+            }
+        } __finally {
+            KeRestoreExtendedProcessorState(&SaveState);
+        }
     }
 
 end:
@@ -181,10 +197,18 @@ void JsonTest()
 {
     const char * ver = cJSON_Version();
 
-    const char * string = "XXX";
-    cJSON * json = cJSON_Parse(string);
+    //const char * string = "XXX";
+    //cJSON * json = cJSON_Parse(string);
+    //char * string2 = cJSON_Print(json);
 
-    char * string2 = cJSON_Print(json);
+    char* monitor = create_monitor();
+
+    char* monitor_with_helpers = create_monitor_with_helpers();
+
+    int ret = supports_full_hd(monitor);
+
+    cJSON_free(monitor);
+    cJSON_free(monitor_with_helpers);
 }
 
 
