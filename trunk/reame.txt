@@ -3,8 +3,14 @@
 一，cJSON。
   1.cJSON。原始的创库内容（git子模块）。禁止修改这里的内容，这是原则。
   2.json。一个工程（驱动），这里是复制cJSON的cJSON.c和cJSON.h，并修改这两个文件。
-  3.libcjson。一个静态的驱动工程。这里加入了cJSON的cJSON.c和cJ原始的创库内容（git子模块）。禁止修改这里的内容，这是原则。SON.h，但不修改这两个文件，且加入了CRT文件，以修正cJSON的驱动编译。
+  3.libcjson。  
+    一个静态的驱动工程。  
+    这里加入了cJSON的cJSON.c和cJSON.h原始的创库内容（git子模块）。  
+    禁止修改这里的内容，这是原则。  
+    且加入了CRT文件，以修正cJSON的驱动编译。  
   4.test。一个使用libcjson静态库的驱动测试工程。
+  5.libjson。一个应用层的DLL。
+  6.一个EXE。测试用的，调用libjson.dll.
 
 二，jansson。
   1.jansson。原始的创库内容（git子模块）。禁止修改这里的内容，这是原则。

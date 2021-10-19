@@ -84,6 +84,9 @@ static error global_error = {NULL, 0};
 #define _CRT_HYBRIDPATCHABLE
 
 
+#pragma warning(disable:4477) 
+
+
 //_Check_return_ _CRT_INSECURE_DEPRECATE(sscanf_s)
 //_CRT_STDIO_INLINE 
 int __CRTDECL sscanf(
@@ -153,7 +156,14 @@ void * __cdecl realloc(
     _Pre_maybenull_ _Post_invalid_ void * _Block,
     _In_ _CRT_GUARDOVERFLOW        size_t _Size
 )
+/*
+这里应用复制的操作。
+
+这个函数被禁止使用，工程中没有调用这个函数。
+*/
 {
+    ASSERT(FALSE);
+
     if (_Block) {
         ExFreePoolWithTag(_Block, TAG);
     }
@@ -526,7 +536,7 @@ static unsigned char * ensure(printbuffer * const p, size_t needed)
         newsize = needed * 2;
     }
 
-    if (p->hooks.reallocate != NULL) {
+    if (FALSE/*p->hooks.reallocate != NULL*/) {
         /* reallocate with realloc if available */
         newbuffer = (unsigned char *)p->hooks.reallocate(p->buffer, newsize);
         if (newbuffer == NULL) {
@@ -595,12 +605,12 @@ static cJSON_bool print_number(const cJSON * const item, printbuffer * const out
         length = sprintf((char *)number_buffer, "null");
     } else {
         /* Try 15 decimal places of precision to avoid nonsignificant nonzero digits */
-        length = sprintf((char *)number_buffer, "%1.15g", d);
+        length = sprintf((char *)number_buffer, "%lld", d);//%1.15g
 
         /* Check whether the original double can be recovered */
-        if ((sscanf((char *)number_buffer, "%lg", &test) != 1) || !compare_double((double)test, d)) {
+        if ((sscanf((char *)number_buffer, "%lld", &test) != 1) || !compare_double((double)test, d)) {//%lg
             /* If not, print with 17 decimal places of precision */
-            length = sprintf((char *)number_buffer, "%1.17g", d);
+            length = sprintf((char *)number_buffer, "%lld", d);//%1.17g
         }
     }
 
@@ -1165,7 +1175,7 @@ static unsigned char * print(const cJSON * const item, cJSON_bool format, const 
     update_offset(buffer);
 
     /* check if reallocate is available */
-    if (hooks->reallocate != NULL) {
+    if (FALSE/*hooks->reallocate != NULL*/) {
         printed = (unsigned char *)hooks->reallocate(buffer->buffer, buffer->offset + 1);
         if (printed == NULL) {
             goto fail;
