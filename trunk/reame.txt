@@ -22,3 +22,22 @@
   1.json-c。原始的创库内容（git子模块）。禁止修改这里的内容，这是原则。
   2.libjson。json的内核态的静态库。
   3.test。一个使用libjson静态库的驱动测试工程。
+
+
+--------------------------------------------------------------------------------------------------
+
+
+在 Visual Studio 中设置 AVX、AVX2、AVX512、IA32、SSE 或 SSE2 的此编译器选项的步骤
+1.打开项目的“属性页” 对话框。 有关详细信息，请参阅在 Visual Studio 中设置 C++ 编译器和生成属性。
+2.选择“配置属性”>“C/C++”>“代码生成”属性页面 。
+3.修改“启用增强指令集”属性。
+https://learn.microsoft.com/zh-cn/cpp/build/reference/arch-x86?view=msvc-170
+
+Avoiding Floating Point Errors in Custom Build Environments
+1./arch:sse2 
+2./kernel
+3.KeSaveExtendedProcessorState + __try __finally
+https://learn.microsoft.com/en-us/windows-hardware/drivers/develop/avoiding-floating-point-errors-in-custom-build-environments
+
+
+--------------------------------------------------------------------------------------------------
