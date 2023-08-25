@@ -44,7 +44,7 @@ void read()
     const char * out = "{\"name\":\"luffy\",\"sex\":\"man\",\"age\":19}";
 
     json = cJSON_Parse(out);
-    name = cJSON_GetObjectItem(json, "name"); 
+    name = cJSON_GetObjectItem(json, "name");
     sex = cJSON_GetObjectItem(json, "sex");
     age = cJSON_GetObjectItem(json, "age");
 
