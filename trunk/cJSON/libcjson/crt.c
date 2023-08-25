@@ -1,6 +1,9 @@
 #include "crt.h"
 
 
+#pragma warning(disable:4996)  //'ExAllocatePoolWithTag': ExAllocatePoolWithTag is deprecated, use ExAllocatePool2.
+
+
 //////////////////////////////////////////////////////////////////////////////////////////////////
 
 
