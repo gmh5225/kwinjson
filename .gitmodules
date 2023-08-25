@@ -4,6 +4,3 @@
 [submodule "trunk/jansson/jansson"]
 	path = trunk/jansson/jansson
 	url = https://github.com/akheron/jansson.git
-[submodule "trunk/cJSON/cJSON"]
-	path = trunk/cJSON/cJSON
-	url = https://github.com/DaveGamble/cJSON.git
